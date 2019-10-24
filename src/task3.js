@@ -5,7 +5,7 @@
  *     when there is change each 2s (Please use rxjs)
  */
 
-import {Observable} from 'rxjs';
+import {interval} from 'rxjs';
 import {bufferTime, map} from 'rxjs/operators';
 
 let result = document.getElementById('task-3-result');
@@ -15,9 +15,7 @@ function getRndNum(max) {
 }
 
 function getNumber() {
-  return Observable.create(observer=>{
-    setInterval(()=>observer.next(getRndNum(100)), 500);
-  });
+  return interval(500).pipe(map(()=>getRndNum(100)));
 }
 
 getNumber()

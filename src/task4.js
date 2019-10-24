@@ -6,15 +6,15 @@
  *     Please display the messages list in the UI using change detection
  */
 
-import {fromEvent, from} from 'rxjs';
-import {map, tap} from 'rxjs/operators';
+import {from, fromEvent} from 'rxjs';
+import {filter, map, tap} from 'rxjs/operators';
 
 let data = ['apple', 'pineapple', 'orange', 'banana', 'grapefruit'];
 let input = document.getElementById('main-input');
 let result = document.getElementById('task-4-result');
 
 function searchMessages(message) {
-  return data.filter(item=>~item.indexOf(message));
+  return from(data).pipe(filter(item=>~item.indexOf(message)));
 }
 
 function displayResult(data) {
@@ -30,4 +30,5 @@ fromEvent(input, 'change')
       input.value = '';
       result.innerHTML = '';
     })
-  ).subscribe(val=>displayResult(searchMessages(val)));
+  )
+  .subscribe(val=>displayResult(searchMessages(val)));
