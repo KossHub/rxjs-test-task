@@ -1,9 +1,17 @@
+/**
+ * #4: Writing a code that get value from one input on change
+ *     and use that value for a function called
+ *     searchMessages(keyword: string): Observable<Message[]>
+ *     When we receive data from that function.
+ *     Please display the messages list in the UI using change detection
+ */
+
 import {fromEvent, from} from 'rxjs';
 import {map, tap} from 'rxjs/operators';
 
-let data = ['abc', 'bc2', 'c', 'abcd', 'ea'];
+let data = ['apple', 'pineapple', 'orange', 'banana', 'grapefruit'];
 let input = document.getElementById('main-input');
-let result = document.getElementById('result');
+let result = document.getElementById('task-4-result');
 
 function searchMessages(message) {
   return data.filter(item=>~item.indexOf(message));
