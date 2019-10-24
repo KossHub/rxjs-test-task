@@ -6,5 +6,18 @@
  *     value user is online true/false)
  */
 
-import {} from 'rxjs';
-import {} from 'rxjs/operators';
+import {fromEvent, of} from 'rxjs';
+import {pluck} from 'rxjs/operators';
+
+let switcher = document.getElementById('switcher');
+
+function writeLog() {
+  console.log('User is online and logged in');
+}
+
+fromEvent(switcher, 'change')
+  .pipe(pluck('target', 'checked'))
+  .subscribe(val=>val && writeLog());
+
+let isUserLoggedIn$ = of(switcher.checked);
+isUserLoggedIn$.subscribe(val=>val && writeLog());

@@ -6,12 +6,14 @@
  *     Please display the messages list in the UI using change detection
  */
 
+import {filter, map, pluck, tap} from 'rxjs/operators';
 import {from, fromEvent} from 'rxjs';
-import {filter, map, tap} from 'rxjs/operators';
 
-let data = ['apple', 'pineapple', 'orange', 'banana', 'grapefruit'];
+let data = ['apple', 'pineapple', 'orange', 'banana', 'grapefruit', 'lemon'];
 let input = document.getElementById('main-input');
 let result = document.getElementById('task-4-result');
+
+document.getElementById('task-4-data').innerHTML = data.join(', ');
 
 function searchMessages(message) {
   return from(data).pipe(filter(item=>~item.indexOf(message)));
@@ -19,13 +21,13 @@ function searchMessages(message) {
 
 function displayResult(data) {
   from(data)
-  .pipe(map(val=>`<h4>${val}</h4>`))
-  .subscribe(html=>result.insertAdjacentHTML('beforeend', html));
+    .pipe(map(val=>`<h4>${val}</h4>`))
+    .subscribe(html=>result.insertAdjacentHTML('beforeend', html));
 }
 
 fromEvent(input, 'change')
   .pipe(
-    map(e=>e.target.value),
+    pluck('target', 'value'),
     tap(()=>{
       input.value = '';
       result.innerHTML = '';

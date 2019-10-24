@@ -9,18 +9,28 @@
       body {padding-top: 3rem;}
       h3 {float: left; margin-right: 3rem;}
       #main-input {width: 600px;}
+      .switch {margin-bottom: 3rem;}
     </style>
     <title>RxJS Test Task</title>
   </head>
   <body>
     <div class="container">
+      <div class="switch">
+        <label>
+          LogOut
+          <input type="checkbox" id="switcher">
+          <span class="lever"></span>
+          LogIn
+        </label>
+      </div>
       <div class="input-field">
         <input type="text" id="main-input">
-        <label for="main-input">Input</label>
+        <label for="main-input">Search</label>
       </div>
+      <div class="row" id="task-4-data"></div>
       <div class="row" id="task-4-result"></div>
       <div class="row" id="task-3-result"></div>
     </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </body>
 </html>

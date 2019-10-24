@@ -5,8 +5,8 @@
  *     when there is change each 2s (Please use rxjs)
  */
 
-import {interval} from 'rxjs';
 import {bufferTime, map} from 'rxjs/operators';
+import {interval} from 'rxjs';
 
 let result = document.getElementById('task-3-result');
 
@@ -20,7 +20,7 @@ function getNumber() {
 
 getNumber()
   .pipe(
-    map(val=>`<h3><b>${val}</b></h3>`),
+    map(val=>`<h3>${val}</h3>`),
     bufferTime(2000)
   )
   .subscribe(numbers=>result.innerHTML = numbers.join(''));
