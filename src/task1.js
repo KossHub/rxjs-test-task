@@ -7,30 +7,34 @@
 
 import {ajax} from 'rxjs/ajax';
 import {fromEvent, of, timer} from 'rxjs';
-import {pluck} from 'rxjs/operators';
+import {pluck, tap} from 'rxjs/operators';
 
 const URL = 'https://httpbin.org/delay/2';
-let switcher = document.getElementById('switcher');
+let switcher = document.getElementById('switcher')
+let isUserLoggedIn = switcher.checked;
 
 function getOnlineStatus() {
-  return of(switcher.checked);
+  return of(isUserLoggedIn);
 }
 
 function createLongPolling() {
-  switcher.checked && ajax(URL).subscribe(
+  isUserLoggedIn && ajax(URL).subscribe(
     data=>{
-      console.log('Data:', data);
+      isUserLoggedIn && console.log('Data:', data);
       createLongPolling();
     },
     err=>{
-      console.log('Error', err);
+      isUserLoggedIn && console.log('Error', err);
       timer(500).subscribe(()=>createLongPolling());
     }
   );
 }
 
 fromEvent(switcher, 'change')
-  .pipe(pluck('target', 'checked'))
+  .pipe(
+    pluck('target', 'checked'),
+    tap(val=>isUserLoggedIn = val)
+  )
   .subscribe(val=>val && createLongPolling());
 
 getOnlineStatus().subscribe(val=>val && createLongPolling());
